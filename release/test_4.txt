@@ -1,0 +1,23 @@
+// 请输入或导入代码
+{
+int i, j, k;
+i=4;
+j=5;
+k=3;
+if(i>j){
+	if(i>k){
+		write i;
+	}
+	else{
+		write k;
+	}
+};
+if(i<j){
+	if(j>k){
+		write j;
+	}
+	else{
+		write k;
+	}
+}
+}

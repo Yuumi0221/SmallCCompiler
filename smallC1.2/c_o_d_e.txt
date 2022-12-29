@@ -1,0 +1,8 @@
+{
+const m=2, n=3;
+int i, j;
+read i;
+read j;
+write (i + j);
+write (m - n);
+}

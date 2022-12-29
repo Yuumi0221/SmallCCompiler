@@ -1,0 +1,16 @@
+{
+const a=3;
+int i, j, halfi, check;
+
+write 2;
+write 3;
+for(i=4;i<=100;a++) {
+	halfi = i / 2;
+	check = 0;
+	for(j=2;j<=halfi;j=j+1)
+		if(i%j == 0)
+			check++;
+	if(check == 0)
+		write i;
+}
+}

@@ -1,0 +1,2475 @@
+Terminals unused in grammar
+
+   PERIOD
+   CONTINUESYM
+   BREAKSYM
+
+
+State 64 conflicts: 2 shift/reduce
+State 87 conflicts: 2 shift/reduce
+State 123 conflicts: 2 shift/reduce
+State 124 conflicts: 2 shift/reduce
+State 125 conflicts: 2 shift/reduce
+State 126 conflicts: 2 shift/reduce
+State 129 conflicts: 2 shift/reduce
+State 130 conflicts: 2 shift/reduce
+State 131 conflicts: 2 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: block
+
+    2 @1: /* empty */
+
+    3 $@2: /* empty */
+
+    4 $@3: /* empty */
+
+    5 block: @1 get_table_addr LBRACE constdecl vardecl procdecls $@2 statement_decl $@3 RBRACE
+
+    6 constdecl: CONSTSYM constlist SEMICOLON
+    7          | CONSTSYM constlist
+    8          | /* empty */
+
+    9 constlist: constdef
+   10          | constlist COMMA constdef
+
+   11 constdef: IDENT EQL NUMBER
+
+   12 vardecl: INTSYM varlist SEMICOLON
+   13        | INTSYM varlist
+   14        | /* empty */
+
+   15 varlist: vardef
+   16        | varlist COMMA vardef
+
+   17 vardef: IDENT
+
+   18 procdecls: procdecls procdecl procbody
+   19          | /* empty */
+
+   20 procdecl: inc_px PROCSYM IDENT SEMICOLON
+
+   21 procbody: inc_level block dec_level_px SEMICOLON
+
+   22 statement_decl: statement_list
+   23               | /* empty */
+
+   24 statement_list: statement
+   25               | statement_list statement
+
+   26 statement: callstm
+   27          | compound_stat
+   28          | if_stat
+   29          | while_stat
+   30          | read_stat
+   31          | write_stat
+   32          | expression_stat
+   33          | exit_stat
+   34          | for_stat
+   35          | do_when_stat
+   36          | repeat_until_stat
+
+   37 compound_stat: LBRACE statement_decl RBRACE
+
+   38 expression_stat: expression SEMICOLON
+   39                | expression
+   40                | SEMICOLON
+
+   41 expression: ident EQL andOr_expr
+   42           | andOr_expr
+
+   43 exit_stat: EXITSYM
+
+   44 callstm: CALLSYM ident
+
+   45 $@4: /* empty */
+
+   46 $@5: /* empty */
+
+   47 if_stat: IFSYM LPAREN expression RPAREN get_code_addr $@4 statement get_code_addr $@5 else_stat
+
+   48 else_stat: ELSESYM statement
+   49          | /* empty */
+
+   50 $@6: /* empty */
+
+   51 while_stat: WHILESYM get_code_addr LPAREN expression RPAREN get_code_addr $@6 statement
+
+   52 do_when_stat: DOSYM get_code_addr statement WHENSYM LPAREN expression RPAREN
+
+   53 repeat_until_stat: REPEATSYM get_code_addr statement UNTILSYM LPAREN expression RPAREN
+
+   54 $@7: /* empty */
+
+   55 $@8: /* empty */
+
+   56 $@9: /* empty */
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+   58 for_init: ident EQL andOr_expr
+   59         | /* empty */
+
+   60 read_stat: READSYM readvar
+
+   61 readvar: ident SEMICOLON
+   62        | ident
+
+   63 write_stat: WRITESYM expression SEMICOLON
+   64           | WRITESYM expression
+
+   65 andOr_expr: bool_expr
+   66           | bool_expr AND bool_expr
+   67           | bool_expr OR bool_expr
+
+   68 bool_expr: additive_expr
+   69          | ODDSYM additive_expr
+   70          | additive_expr LSS additive_expr
+   71          | additive_expr LEQ additive_expr
+   72          | additive_expr GTR additive_expr
+   73          | additive_expr GEQ additive_expr
+   74          | additive_expr EQUALS additive_expr
+   75          | additive_expr NEQ additive_expr
+   76          | additive_expr XOR additive_expr
+
+   77 additive_expr: PLUS term
+   78              | MINUS term
+   79              | term
+   80              | additive_expr PLUS term
+   81              | additive_expr MINUS term
+
+   82 term: notTerm
+   83     | term TIMES notTerm
+   84     | term SLASH notTerm
+   85     | term MOD notTerm
+
+   86 notTerm: factor
+   87        | NOT factor
+
+   88 factor: ident MOREPLUS
+   89       | ident MOREMINUS
+   90       | ident
+   91       | NUMBER
+   92       | LPAREN expression RPAREN
+
+   93 ident: IDENT
+
+   94 get_table_addr: /* empty */
+
+   95 get_code_addr: /* empty */
+
+   96 inc_level: /* empty */
+
+   97 inc_px: /* empty */
+
+   98 dec_level_px: /* empty */
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+CALLSYM (258) 44
+CONSTSYM (259) 6 7
+IFSYM (260) 47
+PROCSYM (261) 20
+READSYM (262) 60
+INTSYM (263) 12 13
+WHILESYM (264) 51
+WRITESYM (265) 63 64
+FORSYM (266) 57
+DOSYM (267) 52
+WHENSYM (268) 52
+REPEATSYM (269) 53
+UNTILSYM (270) 53
+LSS (271) 70
+LEQ (272) 71
+GTR (273) 72
+GEQ (274) 73
+PLUS (275) 77 80
+MINUS (276) 78 81
+TIMES (277) 83
+SLASH (278) 84
+LPAREN (279) 47 51 52 53 57 92
+RPAREN (280) 47 51 52 53 57 92
+EQL (281) 11 41 58
+COMMA (282) 10 16
+PERIOD (283)
+NEQ (284) 75
+SEMICOLON (285) 6 12 20 21 38 40 57 61 63
+NOT (286) 87
+EQUALS (287) 74
+ELSESYM (288) 48
+LBRACE (289) 5 37
+RBRACE (290) 5 37
+MOD (291) 85
+XOR (292) 76
+ODDSYM (293) 69
+MOREPLUS (294) 88
+MOREMINUS (295) 89
+AND (296) 66
+OR (297) 67
+CONTINUESYM (298)
+EXITSYM (299) 43
+BREAKSYM (300)
+LOWER_THAN_ELSE (301)
+LOWER_THAN_MORE (302)
+LOWER_THAN_SEMICOLON (303)
+IDENT (304) 11 17 20 93
+NUMBER (305) 11 91
+
+
+Nonterminals, with rules where they appear
+
+$accept (51)
+    on left: 0
+program (52)
+    on left: 1, on right: 0
+block (53)
+    on left: 5, on right: 1 21
+@1 (54)
+    on left: 2, on right: 5
+$@2 (55)
+    on left: 3, on right: 5
+$@3 (56)
+    on left: 4, on right: 5
+constdecl (57)
+    on left: 6 7 8, on right: 5
+constlist (58)
+    on left: 9 10, on right: 6 7 10
+constdef (59)
+    on left: 11, on right: 9 10
+vardecl (60)
+    on left: 12 13 14, on right: 5
+varlist (61)
+    on left: 15 16, on right: 12 13 16
+vardef (62)
+    on left: 17, on right: 15 16
+procdecls (63)
+    on left: 18 19, on right: 5 18
+procdecl (64)
+    on left: 20, on right: 18
+procbody (65)
+    on left: 21, on right: 18
+statement_decl (66)
+    on left: 22 23, on right: 5 37
+statement_list (67)
+    on left: 24 25, on right: 22 25
+statement (68)
+    on left: 26 27 28 29 30 31 32 33 34 35 36, on right: 24 25 47 48
+    51 52 53 57
+compound_stat (69)
+    on left: 37, on right: 27
+expression_stat (70)
+    on left: 38 39 40, on right: 32
+expression (71)
+    on left: 41 42, on right: 38 39 47 51 52 53 57 63 64 92
+exit_stat (72)
+    on left: 43, on right: 33
+callstm (73)
+    on left: 44, on right: 26
+if_stat (74)
+    on left: 47, on right: 28
+$@4 (75)
+    on left: 45, on right: 47
+$@5 (76)
+    on left: 46, on right: 47
+else_stat (77)
+    on left: 48 49, on right: 47
+while_stat (78)
+    on left: 51, on right: 29
+$@6 (79)
+    on left: 50, on right: 51
+do_when_stat (80)
+    on left: 52, on right: 35
+repeat_until_stat (81)
+    on left: 53, on right: 36
+for_stat (82)
+    on left: 57, on right: 34
+$@7 (83)
+    on left: 54, on right: 57
+$@8 (84)
+    on left: 55, on right: 57
+$@9 (85)
+    on left: 56, on right: 57
+for_init (86)
+    on left: 58 59, on right: 57
+read_stat (87)
+    on left: 60, on right: 30
+readvar (88)
+    on left: 61 62, on right: 60
+write_stat (89)
+    on left: 63 64, on right: 31
+andOr_expr (90)
+    on left: 65 66 67, on right: 41 42 58
+bool_expr (91)
+    on left: 68 69 70 71 72 73 74 75 76, on right: 65 66 67
+additive_expr (92)
+    on left: 77 78 79 80 81, on right: 68 69 70 71 72 73 74 75 76 80
+    81
+term (93)
+    on left: 82 83 84 85, on right: 77 78 79 80 81 83 84 85
+notTerm (94)
+    on left: 86 87, on right: 82 83 84 85
+factor (95)
+    on left: 88 89 90 91 92, on right: 86 87
+ident (96)
+    on left: 93, on right: 41 44 58 61 62 88 89 90
+get_table_addr (97)
+    on left: 94, on right: 5
+get_code_addr (98)
+    on left: 95, on right: 47 51 52 53 57
+inc_level (99)
+    on left: 96, on right: 21
+inc_px (100)
+    on left: 97, on right: 20
+dec_level_px (101)
+    on left: 98, on right: 21
+
+
+state 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 2 (@1)
+
+    program  go to state 1
+    block    go to state 2
+    @1       go to state 3
+
+
+state 1
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 4
+
+
+state 2
+
+    1 program: block .
+
+    $default  reduce using rule 1 (program)
+
+
+state 3
+
+    5 block: @1 . get_table_addr LBRACE constdecl vardecl procdecls $@2 statement_decl $@3 RBRACE
+
+    $default  reduce using rule 94 (get_table_addr)
+
+    get_table_addr  go to state 5
+
+
+state 4
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 5
+
+    5 block: @1 get_table_addr . LBRACE constdecl vardecl procdecls $@2 statement_decl $@3 RBRACE
+
+    LBRACE  shift, and go to state 6
+
+
+state 6
+
+    5 block: @1 get_table_addr LBRACE . constdecl vardecl procdecls $@2 statement_decl $@3 RBRACE
+
+    CONSTSYM  shift, and go to state 7
+
+    $default  reduce using rule 8 (constdecl)
+
+    constdecl  go to state 8
+
+
+state 7
+
+    6 constdecl: CONSTSYM . constlist SEMICOLON
+    7          | CONSTSYM . constlist
+
+    IDENT  shift, and go to state 9
+
+    constlist  go to state 10
+    constdef   go to state 11
+
+
+state 8
+
+    5 block: @1 get_table_addr LBRACE constdecl . vardecl procdecls $@2 statement_decl $@3 RBRACE
+
+    INTSYM  shift, and go to state 12
+
+    $default  reduce using rule 14 (vardecl)
+
+    vardecl  go to state 13
+
+
+state 9
+
+   11 constdef: IDENT . EQL NUMBER
+
+    EQL  shift, and go to state 14
+
+
+state 10
+
+    6 constdecl: CONSTSYM constlist . SEMICOLON
+    7          | CONSTSYM constlist .
+   10 constlist: constlist . COMMA constdef
+
+    COMMA      shift, and go to state 15
+    SEMICOLON  shift, and go to state 16
+
+    $default  reduce using rule 7 (constdecl)
+
+
+state 11
+
+    9 constlist: constdef .
+
+    $default  reduce using rule 9 (constlist)
+
+
+state 12
+
+   12 vardecl: INTSYM . varlist SEMICOLON
+   13        | INTSYM . varlist
+
+    IDENT  shift, and go to state 17
+
+    varlist  go to state 18
+    vardef   go to state 19
+
+
+state 13
+
+    5 block: @1 get_table_addr LBRACE constdecl vardecl . procdecls $@2 statement_decl $@3 RBRACE
+
+    $default  reduce using rule 19 (procdecls)
+
+    procdecls  go to state 20
+
+
+state 14
+
+   11 constdef: IDENT EQL . NUMBER
+
+    NUMBER  shift, and go to state 21
+
+
+state 15
+
+   10 constlist: constlist COMMA . constdef
+
+    IDENT  shift, and go to state 9
+
+    constdef  go to state 22
+
+
+state 16
+
+    6 constdecl: CONSTSYM constlist SEMICOLON .
+
+    $default  reduce using rule 6 (constdecl)
+
+
+state 17
+
+   17 vardef: IDENT .
+
+    $default  reduce using rule 17 (vardef)
+
+
+state 18
+
+   12 vardecl: INTSYM varlist . SEMICOLON
+   13        | INTSYM varlist .
+   16 varlist: varlist . COMMA vardef
+
+    COMMA      shift, and go to state 23
+    SEMICOLON  shift, and go to state 24
+
+    $default  reduce using rule 13 (vardecl)
+
+
+state 19
+
+   15 varlist: vardef .
+
+    $default  reduce using rule 15 (varlist)
+
+
+state 20
+
+    5 block: @1 get_table_addr LBRACE constdecl vardecl procdecls . $@2 statement_decl $@3 RBRACE
+   18 procdecls: procdecls . procdecl procbody
+
+    PROCSYM   reduce using rule 97 (inc_px)
+    $default  reduce using rule 3 ($@2)
+
+    $@2       go to state 25
+    procdecl  go to state 26
+    inc_px    go to state 27
+
+
+state 21
+
+   11 constdef: IDENT EQL NUMBER .
+
+    $default  reduce using rule 11 (constdef)
+
+
+state 22
+
+   10 constlist: constlist COMMA constdef .
+
+    $default  reduce using rule 10 (constlist)
+
+
+state 23
+
+   16 varlist: varlist COMMA . vardef
+
+    IDENT  shift, and go to state 17
+
+    vardef  go to state 28
+
+
+state 24
+
+   12 vardecl: INTSYM varlist SEMICOLON .
+
+    $default  reduce using rule 12 (vardecl)
+
+
+state 25
+
+    5 block: @1 get_table_addr LBRACE constdecl vardecl procdecls $@2 . statement_decl $@3 RBRACE
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    $default  reduce using rule 23 (statement_decl)
+
+    statement_decl     go to state 47
+    statement_list     go to state 48
+    statement          go to state 49
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 26
+
+   18 procdecls: procdecls procdecl . procbody
+
+    $default  reduce using rule 96 (inc_level)
+
+    procbody   go to state 69
+    inc_level  go to state 70
+
+
+state 27
+
+   20 procdecl: inc_px . PROCSYM IDENT SEMICOLON
+
+    PROCSYM  shift, and go to state 71
+
+
+state 28
+
+   16 varlist: varlist COMMA vardef .
+
+    $default  reduce using rule 16 (varlist)
+
+
+state 29
+
+   44 callstm: CALLSYM . ident
+
+    IDENT  shift, and go to state 45
+
+    ident  go to state 72
+
+
+state 30
+
+   47 if_stat: IFSYM . LPAREN expression RPAREN get_code_addr $@4 statement get_code_addr $@5 else_stat
+
+    LPAREN  shift, and go to state 73
+
+
+state 31
+
+   60 read_stat: READSYM . readvar
+
+    IDENT  shift, and go to state 45
+
+    readvar  go to state 74
+    ident    go to state 75
+
+
+state 32
+
+   51 while_stat: WHILESYM . get_code_addr LPAREN expression RPAREN get_code_addr $@6 statement
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 76
+
+
+state 33
+
+   63 write_stat: WRITESYM . expression SEMICOLON
+   64           | WRITESYM . expression
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    expression     go to state 77
+    andOr_expr     go to state 62
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 68
+
+
+state 34
+
+   57 for_stat: FORSYM . LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    LPAREN  shift, and go to state 78
+
+
+state 35
+
+   52 do_when_stat: DOSYM . get_code_addr statement WHENSYM LPAREN expression RPAREN
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 79
+
+
+state 36
+
+   53 repeat_until_stat: REPEATSYM . get_code_addr statement UNTILSYM LPAREN expression RPAREN
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 80
+
+
+state 37
+
+   77 additive_expr: PLUS . term
+
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    term     go to state 81
+    notTerm  go to state 66
+    factor   go to state 67
+    ident    go to state 82
+
+
+state 38
+
+   78 additive_expr: MINUS . term
+
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    term     go to state 83
+    notTerm  go to state 66
+    factor   go to state 67
+    ident    go to state 82
+
+
+state 39
+
+   92 factor: LPAREN . expression RPAREN
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    expression     go to state 84
+    andOr_expr     go to state 62
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 68
+
+
+state 40
+
+   40 expression_stat: SEMICOLON .
+
+    $default  reduce using rule 40 (expression_stat)
+
+
+state 41
+
+   87 notTerm: NOT . factor
+
+    LPAREN  shift, and go to state 39
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    factor  go to state 85
+    ident   go to state 82
+
+
+state 42
+
+   37 compound_stat: LBRACE . statement_decl RBRACE
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    $default  reduce using rule 23 (statement_decl)
+
+    statement_decl     go to state 86
+    statement_list     go to state 48
+    statement          go to state 49
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 43
+
+   69 bool_expr: ODDSYM . additive_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    additive_expr  go to state 87
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 44
+
+   43 exit_stat: EXITSYM .
+
+    $default  reduce using rule 43 (exit_stat)
+
+
+state 45
+
+   93 ident: IDENT .
+
+    $default  reduce using rule 93 (ident)
+
+
+state 46
+
+   91 factor: NUMBER .
+
+    $default  reduce using rule 91 (factor)
+
+
+state 47
+
+    5 block: @1 get_table_addr LBRACE constdecl vardecl procdecls $@2 statement_decl . $@3 RBRACE
+
+    $default  reduce using rule 4 ($@3)
+
+    $@3  go to state 88
+
+
+state 48
+
+   22 statement_decl: statement_list .
+   25 statement_list: statement_list . statement
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    $default  reduce using rule 22 (statement_decl)
+
+    statement          go to state 89
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 49
+
+   24 statement_list: statement .
+
+    $default  reduce using rule 24 (statement_list)
+
+
+state 50
+
+   27 statement: compound_stat .
+
+    $default  reduce using rule 27 (statement)
+
+
+state 51
+
+   32 statement: expression_stat .
+
+    $default  reduce using rule 32 (statement)
+
+
+state 52
+
+   38 expression_stat: expression . SEMICOLON
+   39                | expression .
+
+    SEMICOLON  shift, and go to state 90
+
+    $default  reduce using rule 39 (expression_stat)
+
+
+state 53
+
+   33 statement: exit_stat .
+
+    $default  reduce using rule 33 (statement)
+
+
+state 54
+
+   26 statement: callstm .
+
+    $default  reduce using rule 26 (statement)
+
+
+state 55
+
+   28 statement: if_stat .
+
+    $default  reduce using rule 28 (statement)
+
+
+state 56
+
+   29 statement: while_stat .
+
+    $default  reduce using rule 29 (statement)
+
+
+state 57
+
+   35 statement: do_when_stat .
+
+    $default  reduce using rule 35 (statement)
+
+
+state 58
+
+   36 statement: repeat_until_stat .
+
+    $default  reduce using rule 36 (statement)
+
+
+state 59
+
+   34 statement: for_stat .
+
+    $default  reduce using rule 34 (statement)
+
+
+state 60
+
+   30 statement: read_stat .
+
+    $default  reduce using rule 30 (statement)
+
+
+state 61
+
+   31 statement: write_stat .
+
+    $default  reduce using rule 31 (statement)
+
+
+state 62
+
+   42 expression: andOr_expr .
+
+    $default  reduce using rule 42 (expression)
+
+
+state 63
+
+   65 andOr_expr: bool_expr .
+   66           | bool_expr . AND bool_expr
+   67           | bool_expr . OR bool_expr
+
+    AND  shift, and go to state 91
+    OR   shift, and go to state 92
+
+    $default  reduce using rule 65 (andOr_expr)
+
+
+state 64
+
+   68 bool_expr: additive_expr .
+   70          | additive_expr . LSS additive_expr
+   71          | additive_expr . LEQ additive_expr
+   72          | additive_expr . GTR additive_expr
+   73          | additive_expr . GEQ additive_expr
+   74          | additive_expr . EQUALS additive_expr
+   75          | additive_expr . NEQ additive_expr
+   76          | additive_expr . XOR additive_expr
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    LSS     shift, and go to state 93
+    LEQ     shift, and go to state 94
+    GTR     shift, and go to state 95
+    GEQ     shift, and go to state 96
+    PLUS    shift, and go to state 97
+    MINUS   shift, and go to state 98
+    NEQ     shift, and go to state 99
+    EQUALS  shift, and go to state 100
+    XOR     shift, and go to state 101
+
+    PLUS      [reduce using rule 68 (bool_expr)]
+    MINUS     [reduce using rule 68 (bool_expr)]
+    $default  reduce using rule 68 (bool_expr)
+
+
+state 65
+
+   79 additive_expr: term .
+   83 term: term . TIMES notTerm
+   84     | term . SLASH notTerm
+   85     | term . MOD notTerm
+
+    TIMES  shift, and go to state 102
+    SLASH  shift, and go to state 103
+    MOD    shift, and go to state 104
+
+    $default  reduce using rule 79 (additive_expr)
+
+
+state 66
+
+   82 term: notTerm .
+
+    $default  reduce using rule 82 (term)
+
+
+state 67
+
+   86 notTerm: factor .
+
+    $default  reduce using rule 86 (notTerm)
+
+
+state 68
+
+   41 expression: ident . EQL andOr_expr
+   88 factor: ident . MOREPLUS
+   89       | ident . MOREMINUS
+   90       | ident .
+
+    EQL        shift, and go to state 105
+    MOREPLUS   shift, and go to state 106
+    MOREMINUS  shift, and go to state 107
+
+    $default  reduce using rule 90 (factor)
+
+
+state 69
+
+   18 procdecls: procdecls procdecl procbody .
+
+    $default  reduce using rule 18 (procdecls)
+
+
+state 70
+
+   21 procbody: inc_level . block dec_level_px SEMICOLON
+
+    $default  reduce using rule 2 (@1)
+
+    block  go to state 108
+    @1     go to state 3
+
+
+state 71
+
+   20 procdecl: inc_px PROCSYM . IDENT SEMICOLON
+
+    IDENT  shift, and go to state 109
+
+
+state 72
+
+   44 callstm: CALLSYM ident .
+
+    $default  reduce using rule 44 (callstm)
+
+
+state 73
+
+   47 if_stat: IFSYM LPAREN . expression RPAREN get_code_addr $@4 statement get_code_addr $@5 else_stat
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    expression     go to state 110
+    andOr_expr     go to state 62
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 68
+
+
+state 74
+
+   60 read_stat: READSYM readvar .
+
+    $default  reduce using rule 60 (read_stat)
+
+
+state 75
+
+   61 readvar: ident . SEMICOLON
+   62        | ident .
+
+    SEMICOLON  shift, and go to state 111
+
+    $default  reduce using rule 62 (readvar)
+
+
+state 76
+
+   51 while_stat: WHILESYM get_code_addr . LPAREN expression RPAREN get_code_addr $@6 statement
+
+    LPAREN  shift, and go to state 112
+
+
+state 77
+
+   63 write_stat: WRITESYM expression . SEMICOLON
+   64           | WRITESYM expression .
+
+    SEMICOLON  shift, and go to state 113
+
+    $default  reduce using rule 64 (write_stat)
+
+
+state 78
+
+   57 for_stat: FORSYM LPAREN . for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    IDENT  shift, and go to state 45
+
+    $default  reduce using rule 59 (for_init)
+
+    for_init  go to state 114
+    ident     go to state 115
+
+
+state 79
+
+   52 do_when_stat: DOSYM get_code_addr . statement WHENSYM LPAREN expression RPAREN
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    statement          go to state 116
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 80
+
+   53 repeat_until_stat: REPEATSYM get_code_addr . statement UNTILSYM LPAREN expression RPAREN
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    statement          go to state 117
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 81
+
+   77 additive_expr: PLUS term .
+   83 term: term . TIMES notTerm
+   84     | term . SLASH notTerm
+   85     | term . MOD notTerm
+
+    TIMES  shift, and go to state 102
+    SLASH  shift, and go to state 103
+    MOD    shift, and go to state 104
+
+    $default  reduce using rule 77 (additive_expr)
+
+
+state 82
+
+   88 factor: ident . MOREPLUS
+   89       | ident . MOREMINUS
+   90       | ident .
+
+    MOREPLUS   shift, and go to state 106
+    MOREMINUS  shift, and go to state 107
+
+    $default  reduce using rule 90 (factor)
+
+
+state 83
+
+   78 additive_expr: MINUS term .
+   83 term: term . TIMES notTerm
+   84     | term . SLASH notTerm
+   85     | term . MOD notTerm
+
+    TIMES  shift, and go to state 102
+    SLASH  shift, and go to state 103
+    MOD    shift, and go to state 104
+
+    $default  reduce using rule 78 (additive_expr)
+
+
+state 84
+
+   92 factor: LPAREN expression . RPAREN
+
+    RPAREN  shift, and go to state 118
+
+
+state 85
+
+   87 notTerm: NOT factor .
+
+    $default  reduce using rule 87 (notTerm)
+
+
+state 86
+
+   37 compound_stat: LBRACE statement_decl . RBRACE
+
+    RBRACE  shift, and go to state 119
+
+
+state 87
+
+   69 bool_expr: ODDSYM additive_expr .
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    PLUS   shift, and go to state 97
+    MINUS  shift, and go to state 98
+
+    PLUS      [reduce using rule 69 (bool_expr)]
+    MINUS     [reduce using rule 69 (bool_expr)]
+    $default  reduce using rule 69 (bool_expr)
+
+
+state 88
+
+    5 block: @1 get_table_addr LBRACE constdecl vardecl procdecls $@2 statement_decl $@3 . RBRACE
+
+    RBRACE  shift, and go to state 120
+
+
+state 89
+
+   25 statement_list: statement_list statement .
+
+    $default  reduce using rule 25 (statement_list)
+
+
+state 90
+
+   38 expression_stat: expression SEMICOLON .
+
+    $default  reduce using rule 38 (expression_stat)
+
+
+state 91
+
+   66 andOr_expr: bool_expr AND . bool_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    bool_expr      go to state 121
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 92
+
+   67 andOr_expr: bool_expr OR . bool_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    bool_expr      go to state 122
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 93
+
+   70 bool_expr: additive_expr LSS . additive_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    additive_expr  go to state 123
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 94
+
+   71 bool_expr: additive_expr LEQ . additive_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    additive_expr  go to state 124
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 95
+
+   72 bool_expr: additive_expr GTR . additive_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    additive_expr  go to state 125
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 96
+
+   73 bool_expr: additive_expr GEQ . additive_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    additive_expr  go to state 126
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 97
+
+   80 additive_expr: additive_expr PLUS . term
+
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    term     go to state 127
+    notTerm  go to state 66
+    factor   go to state 67
+    ident    go to state 82
+
+
+state 98
+
+   81 additive_expr: additive_expr MINUS . term
+
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    term     go to state 128
+    notTerm  go to state 66
+    factor   go to state 67
+    ident    go to state 82
+
+
+state 99
+
+   75 bool_expr: additive_expr NEQ . additive_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    additive_expr  go to state 129
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 100
+
+   74 bool_expr: additive_expr EQUALS . additive_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    additive_expr  go to state 130
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 101
+
+   76 bool_expr: additive_expr XOR . additive_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    additive_expr  go to state 131
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 102
+
+   83 term: term TIMES . notTerm
+
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    notTerm  go to state 132
+    factor   go to state 67
+    ident    go to state 82
+
+
+state 103
+
+   84 term: term SLASH . notTerm
+
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    notTerm  go to state 133
+    factor   go to state 67
+    ident    go to state 82
+
+
+state 104
+
+   85 term: term MOD . notTerm
+
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    notTerm  go to state 134
+    factor   go to state 67
+    ident    go to state 82
+
+
+state 105
+
+   41 expression: ident EQL . andOr_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    andOr_expr     go to state 135
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 106
+
+   88 factor: ident MOREPLUS .
+
+    $default  reduce using rule 88 (factor)
+
+
+state 107
+
+   89 factor: ident MOREMINUS .
+
+    $default  reduce using rule 89 (factor)
+
+
+state 108
+
+   21 procbody: inc_level block . dec_level_px SEMICOLON
+
+    $default  reduce using rule 98 (dec_level_px)
+
+    dec_level_px  go to state 136
+
+
+state 109
+
+   20 procdecl: inc_px PROCSYM IDENT . SEMICOLON
+
+    SEMICOLON  shift, and go to state 137
+
+
+state 110
+
+   47 if_stat: IFSYM LPAREN expression . RPAREN get_code_addr $@4 statement get_code_addr $@5 else_stat
+
+    RPAREN  shift, and go to state 138
+
+
+state 111
+
+   61 readvar: ident SEMICOLON .
+
+    $default  reduce using rule 61 (readvar)
+
+
+state 112
+
+   51 while_stat: WHILESYM get_code_addr LPAREN . expression RPAREN get_code_addr $@6 statement
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    expression     go to state 139
+    andOr_expr     go to state 62
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 68
+
+
+state 113
+
+   63 write_stat: WRITESYM expression SEMICOLON .
+
+    $default  reduce using rule 63 (write_stat)
+
+
+state 114
+
+   57 for_stat: FORSYM LPAREN for_init . SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    SEMICOLON  shift, and go to state 140
+
+
+state 115
+
+   58 for_init: ident . EQL andOr_expr
+
+    EQL  shift, and go to state 141
+
+
+state 116
+
+   52 do_when_stat: DOSYM get_code_addr statement . WHENSYM LPAREN expression RPAREN
+
+    WHENSYM  shift, and go to state 142
+
+
+state 117
+
+   53 repeat_until_stat: REPEATSYM get_code_addr statement . UNTILSYM LPAREN expression RPAREN
+
+    UNTILSYM  shift, and go to state 143
+
+
+state 118
+
+   92 factor: LPAREN expression RPAREN .
+
+    $default  reduce using rule 92 (factor)
+
+
+state 119
+
+   37 compound_stat: LBRACE statement_decl RBRACE .
+
+    $default  reduce using rule 37 (compound_stat)
+
+
+state 120
+
+    5 block: @1 get_table_addr LBRACE constdecl vardecl procdecls $@2 statement_decl $@3 RBRACE .
+
+    $default  reduce using rule 5 (block)
+
+
+state 121
+
+   66 andOr_expr: bool_expr AND bool_expr .
+
+    $default  reduce using rule 66 (andOr_expr)
+
+
+state 122
+
+   67 andOr_expr: bool_expr OR bool_expr .
+
+    $default  reduce using rule 67 (andOr_expr)
+
+
+state 123
+
+   70 bool_expr: additive_expr LSS additive_expr .
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    PLUS   shift, and go to state 97
+    MINUS  shift, and go to state 98
+
+    PLUS      [reduce using rule 70 (bool_expr)]
+    MINUS     [reduce using rule 70 (bool_expr)]
+    $default  reduce using rule 70 (bool_expr)
+
+
+state 124
+
+   71 bool_expr: additive_expr LEQ additive_expr .
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    PLUS   shift, and go to state 97
+    MINUS  shift, and go to state 98
+
+    PLUS      [reduce using rule 71 (bool_expr)]
+    MINUS     [reduce using rule 71 (bool_expr)]
+    $default  reduce using rule 71 (bool_expr)
+
+
+state 125
+
+   72 bool_expr: additive_expr GTR additive_expr .
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    PLUS   shift, and go to state 97
+    MINUS  shift, and go to state 98
+
+    PLUS      [reduce using rule 72 (bool_expr)]
+    MINUS     [reduce using rule 72 (bool_expr)]
+    $default  reduce using rule 72 (bool_expr)
+
+
+state 126
+
+   73 bool_expr: additive_expr GEQ additive_expr .
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    PLUS   shift, and go to state 97
+    MINUS  shift, and go to state 98
+
+    PLUS      [reduce using rule 73 (bool_expr)]
+    MINUS     [reduce using rule 73 (bool_expr)]
+    $default  reduce using rule 73 (bool_expr)
+
+
+state 127
+
+   80 additive_expr: additive_expr PLUS term .
+   83 term: term . TIMES notTerm
+   84     | term . SLASH notTerm
+   85     | term . MOD notTerm
+
+    TIMES  shift, and go to state 102
+    SLASH  shift, and go to state 103
+    MOD    shift, and go to state 104
+
+    $default  reduce using rule 80 (additive_expr)
+
+
+state 128
+
+   81 additive_expr: additive_expr MINUS term .
+   83 term: term . TIMES notTerm
+   84     | term . SLASH notTerm
+   85     | term . MOD notTerm
+
+    TIMES  shift, and go to state 102
+    SLASH  shift, and go to state 103
+    MOD    shift, and go to state 104
+
+    $default  reduce using rule 81 (additive_expr)
+
+
+state 129
+
+   75 bool_expr: additive_expr NEQ additive_expr .
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    PLUS   shift, and go to state 97
+    MINUS  shift, and go to state 98
+
+    PLUS      [reduce using rule 75 (bool_expr)]
+    MINUS     [reduce using rule 75 (bool_expr)]
+    $default  reduce using rule 75 (bool_expr)
+
+
+state 130
+
+   74 bool_expr: additive_expr EQUALS additive_expr .
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    PLUS   shift, and go to state 97
+    MINUS  shift, and go to state 98
+
+    PLUS      [reduce using rule 74 (bool_expr)]
+    MINUS     [reduce using rule 74 (bool_expr)]
+    $default  reduce using rule 74 (bool_expr)
+
+
+state 131
+
+   76 bool_expr: additive_expr XOR additive_expr .
+   80 additive_expr: additive_expr . PLUS term
+   81              | additive_expr . MINUS term
+
+    PLUS   shift, and go to state 97
+    MINUS  shift, and go to state 98
+
+    PLUS      [reduce using rule 76 (bool_expr)]
+    MINUS     [reduce using rule 76 (bool_expr)]
+    $default  reduce using rule 76 (bool_expr)
+
+
+state 132
+
+   83 term: term TIMES notTerm .
+
+    $default  reduce using rule 83 (term)
+
+
+state 133
+
+   84 term: term SLASH notTerm .
+
+    $default  reduce using rule 84 (term)
+
+
+state 134
+
+   85 term: term MOD notTerm .
+
+    $default  reduce using rule 85 (term)
+
+
+state 135
+
+   41 expression: ident EQL andOr_expr .
+
+    $default  reduce using rule 41 (expression)
+
+
+state 136
+
+   21 procbody: inc_level block dec_level_px . SEMICOLON
+
+    SEMICOLON  shift, and go to state 144
+
+
+state 137
+
+   20 procdecl: inc_px PROCSYM IDENT SEMICOLON .
+
+    $default  reduce using rule 20 (procdecl)
+
+
+state 138
+
+   47 if_stat: IFSYM LPAREN expression RPAREN . get_code_addr $@4 statement get_code_addr $@5 else_stat
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 145
+
+
+state 139
+
+   51 while_stat: WHILESYM get_code_addr LPAREN expression . RPAREN get_code_addr $@6 statement
+
+    RPAREN  shift, and go to state 146
+
+
+state 140
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON . get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 147
+
+
+state 141
+
+   58 for_init: ident EQL . andOr_expr
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    andOr_expr     go to state 148
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 82
+
+
+state 142
+
+   52 do_when_stat: DOSYM get_code_addr statement WHENSYM . LPAREN expression RPAREN
+
+    LPAREN  shift, and go to state 149
+
+
+state 143
+
+   53 repeat_until_stat: REPEATSYM get_code_addr statement UNTILSYM . LPAREN expression RPAREN
+
+    LPAREN  shift, and go to state 150
+
+
+state 144
+
+   21 procbody: inc_level block dec_level_px SEMICOLON .
+
+    $default  reduce using rule 21 (procbody)
+
+
+state 145
+
+   47 if_stat: IFSYM LPAREN expression RPAREN get_code_addr . $@4 statement get_code_addr $@5 else_stat
+
+    $default  reduce using rule 45 ($@4)
+
+    $@4  go to state 151
+
+
+state 146
+
+   51 while_stat: WHILESYM get_code_addr LPAREN expression RPAREN . get_code_addr $@6 statement
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 152
+
+
+state 147
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr . expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    expression     go to state 153
+    andOr_expr     go to state 62
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 68
+
+
+state 148
+
+   58 for_init: ident EQL andOr_expr .
+
+    $default  reduce using rule 58 (for_init)
+
+
+state 149
+
+   52 do_when_stat: DOSYM get_code_addr statement WHENSYM LPAREN . expression RPAREN
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    expression     go to state 154
+    andOr_expr     go to state 62
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 68
+
+
+state 150
+
+   53 repeat_until_stat: REPEATSYM get_code_addr statement UNTILSYM LPAREN . expression RPAREN
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    expression     go to state 155
+    andOr_expr     go to state 62
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 68
+
+
+state 151
+
+   47 if_stat: IFSYM LPAREN expression RPAREN get_code_addr $@4 . statement get_code_addr $@5 else_stat
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    statement          go to state 156
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 152
+
+   51 while_stat: WHILESYM get_code_addr LPAREN expression RPAREN get_code_addr . $@6 statement
+
+    $default  reduce using rule 50 ($@6)
+
+    $@6  go to state 157
+
+
+state 153
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression . get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 158
+
+
+state 154
+
+   52 do_when_stat: DOSYM get_code_addr statement WHENSYM LPAREN expression . RPAREN
+
+    RPAREN  shift, and go to state 159
+
+
+state 155
+
+   53 repeat_until_stat: REPEATSYM get_code_addr statement UNTILSYM LPAREN expression . RPAREN
+
+    RPAREN  shift, and go to state 160
+
+
+state 156
+
+   47 if_stat: IFSYM LPAREN expression RPAREN get_code_addr $@4 statement . get_code_addr $@5 else_stat
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 161
+
+
+state 157
+
+   51 while_stat: WHILESYM get_code_addr LPAREN expression RPAREN get_code_addr $@6 . statement
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    statement          go to state 162
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 158
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr . $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    $default  reduce using rule 54 ($@7)
+
+    $@7  go to state 163
+
+
+state 159
+
+   52 do_when_stat: DOSYM get_code_addr statement WHENSYM LPAREN expression RPAREN .
+
+    $default  reduce using rule 52 (do_when_stat)
+
+
+state 160
+
+   53 repeat_until_stat: REPEATSYM get_code_addr statement UNTILSYM LPAREN expression RPAREN .
+
+    $default  reduce using rule 53 (repeat_until_stat)
+
+
+state 161
+
+   47 if_stat: IFSYM LPAREN expression RPAREN get_code_addr $@4 statement get_code_addr . $@5 else_stat
+
+    $default  reduce using rule 46 ($@5)
+
+    $@5  go to state 164
+
+
+state 162
+
+   51 while_stat: WHILESYM get_code_addr LPAREN expression RPAREN get_code_addr $@6 statement .
+
+    $default  reduce using rule 51 (while_stat)
+
+
+state 163
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 . SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    SEMICOLON  shift, and go to state 165
+
+
+state 164
+
+   47 if_stat: IFSYM LPAREN expression RPAREN get_code_addr $@4 statement get_code_addr $@5 . else_stat
+
+    ELSESYM  shift, and go to state 166
+
+    $default  reduce using rule 49 (else_stat)
+
+    else_stat  go to state 167
+
+
+state 165
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON . get_code_addr $@8 get_code_addr expression $@9 RPAREN statement
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 168
+
+
+state 166
+
+   48 else_stat: ELSESYM . statement
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    statement          go to state 169
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 167
+
+   47 if_stat: IFSYM LPAREN expression RPAREN get_code_addr $@4 statement get_code_addr $@5 else_stat .
+
+    $default  reduce using rule 47 (if_stat)
+
+
+state 168
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr . $@8 get_code_addr expression $@9 RPAREN statement
+
+    $default  reduce using rule 55 ($@8)
+
+    $@8  go to state 170
+
+
+state 169
+
+   48 else_stat: ELSESYM statement .
+
+    $default  reduce using rule 48 (else_stat)
+
+
+state 170
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 . get_code_addr expression $@9 RPAREN statement
+
+    $default  reduce using rule 95 (get_code_addr)
+
+    get_code_addr  go to state 171
+
+
+state 171
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr . expression $@9 RPAREN statement
+
+    PLUS    shift, and go to state 37
+    MINUS   shift, and go to state 38
+    LPAREN  shift, and go to state 39
+    NOT     shift, and go to state 41
+    ODDSYM  shift, and go to state 43
+    IDENT   shift, and go to state 45
+    NUMBER  shift, and go to state 46
+
+    expression     go to state 172
+    andOr_expr     go to state 62
+    bool_expr      go to state 63
+    additive_expr  go to state 64
+    term           go to state 65
+    notTerm        go to state 66
+    factor         go to state 67
+    ident          go to state 68
+
+
+state 172
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression . $@9 RPAREN statement
+
+    $default  reduce using rule 56 ($@9)
+
+    $@9  go to state 173
+
+
+state 173
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 . RPAREN statement
+
+    RPAREN  shift, and go to state 174
+
+
+state 174
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN . statement
+
+    CALLSYM    shift, and go to state 29
+    IFSYM      shift, and go to state 30
+    READSYM    shift, and go to state 31
+    WHILESYM   shift, and go to state 32
+    WRITESYM   shift, and go to state 33
+    FORSYM     shift, and go to state 34
+    DOSYM      shift, and go to state 35
+    REPEATSYM  shift, and go to state 36
+    PLUS       shift, and go to state 37
+    MINUS      shift, and go to state 38
+    LPAREN     shift, and go to state 39
+    SEMICOLON  shift, and go to state 40
+    NOT        shift, and go to state 41
+    LBRACE     shift, and go to state 42
+    ODDSYM     shift, and go to state 43
+    EXITSYM    shift, and go to state 44
+    IDENT      shift, and go to state 45
+    NUMBER     shift, and go to state 46
+
+    statement          go to state 175
+    compound_stat      go to state 50
+    expression_stat    go to state 51
+    expression         go to state 52
+    exit_stat          go to state 53
+    callstm            go to state 54
+    if_stat            go to state 55
+    while_stat         go to state 56
+    do_when_stat       go to state 57
+    repeat_until_stat  go to state 58
+    for_stat           go to state 59
+    read_stat          go to state 60
+    write_stat         go to state 61
+    andOr_expr         go to state 62
+    bool_expr          go to state 63
+    additive_expr      go to state 64
+    term               go to state 65
+    notTerm            go to state 66
+    factor             go to state 67
+    ident              go to state 68
+
+
+state 175
+
+   57 for_stat: FORSYM LPAREN for_init SEMICOLON get_code_addr expression get_code_addr $@7 SEMICOLON get_code_addr $@8 get_code_addr expression $@9 RPAREN statement .
+
+    $default  reduce using rule 57 (for_stat)

@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>856</width>
+    <height>648</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	background: transparent;
+	background-color: rgb(60, 63, 65);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="save">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>30</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+}
+QPushButton:pressed{
+	background-color: rgb(93, 97, 99);  
+	border: 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="img.qrc">
+      <normaloff>:/img/img/save.png</normaloff>:/img/img/save.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="browser">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>30</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+}
+QPushButton:pressed{
+	background-color: rgb(93, 97, 99);  
+	border: 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="img.qrc">
+      <normaloff>:/img/img/open.png</normaloff>:/img/img/open.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="compile">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>30</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+}
+QPushButton:pressed{
+	background-color: rgb(93, 97, 99);  
+	border: 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="img.qrc">
+      <normaloff>:/img/img/run.png</normaloff>:/img/img/run.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>38</width>
+      <height>38</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="input">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>80</y>
+      <width>391</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit{
+	background: transparent;
+	background-color: rgb(43, 43, 43);
+	color: rgb(169, 183, 198);
+	border: 1px solid rgb(85, 85, 85);
+}
+
+/*设置垂直滚动条基本样式*/
+QScrollBar:vertical {
+    width: 10px;
+    background: rgb(68, 68, 68);
+    margin: 0px,0px,0px,0px;
+}
+QScrollBar::handle:vertical {
+    width: 10px;
+    background: rgba(0,0,0,10%);
+    min-height: 20;
+}
+QScrollBar::handle:vertical:hover {
+    width: 10px;
+    /*鼠标放到滚动条上的时候，颜色变深*/
+    background: rgba(0,0,0,20%);
+    min-height: 20;
+}
+/*当滚动条滚动的时候，上面的部分和下面的部分*/
+QScrollBar::sub-page:vertical {
+    background: rgb(111, 111, 111);
+}
+QScrollBar::add-page:vertical 
+{
+    background: rgb(111, 111, 111);
+}
+</string>
+    </property>
+    <property name="plainText">
+     <string>// 请输入或导入代码</string>
+    </property>
+    <property name="centerOnScroll">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="success">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>30</y>
+      <width>311</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+	color: rgb(238, 238, 238);
+}</string>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="plainText">
+     <string/>
+    </property>
+    <property name="centerOnScroll">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="table">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>120</y>
+      <width>211</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit{
+	background: transparent;
+	background-color: rgb(43, 43, 43);
+	color: rgb(169, 183, 198);
+	border: 1px solid rgb(85, 85, 85);
+}
+
+/*设置垂直滚动条基本样式*/
+QScrollBar:vertical {
+    width: 10px;
+    background: rgb(68, 68, 68);
+    margin: 0px,0px,0px,0px;
+}
+QScrollBar::handle:vertical {
+    width: 10px;
+    background: rgba(0,0,0,10%);
+    min-height: 20;
+}
+QScrollBar::handle:vertical:hover {
+    width: 10px;
+    /*鼠标放到滚动条上的时候，颜色变深*/
+    background: rgba(0,0,0,20%);
+    min-height: 20;
+}
+/*当滚动条滚动的时候，上面的部分和下面的部分*/
+QScrollBar::sub-page:vertical {
+    background: rgb(111, 111, 111);
+}
+QScrollBar::add-page:vertical 
+{
+    background: rgb(111, 111, 111);
+}
+</string>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="instructions">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>120</y>
+      <width>151</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit{
+	background: transparent;
+	background-color: rgb(43, 43, 43);
+	color: rgb(169, 183, 198);
+	border: 1px solid rgb(85, 85, 85);
+}
+
+/*设置垂直滚动条基本样式*/
+QScrollBar:vertical {
+    width: 10px;
+    background: rgb(68, 68, 68);
+    margin: 0px,0px,0px,0px;
+}
+QScrollBar::handle:vertical {
+    width: 10px;
+    background: rgba(0,0,0,10%);
+    min-height: 20;
+}
+QScrollBar::handle:vertical:hover {
+    width: 10px;
+    /*鼠标放到滚动条上的时候，颜色变深*/
+    background: rgba(0,0,0,20%);
+    min-height: 20;
+}
+/*当滚动条滚动的时候，上面的部分和下面的部分*/
+QScrollBar::sub-page:vertical {
+    background: rgb(111, 111, 111);
+}
+QScrollBar::add-page:vertical 
+{
+    background: rgb(111, 111, 111);
+}
+</string>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="result">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>360</y>
+      <width>211</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit{
+	background: transparent;
+	background-color: rgb(43, 43, 43);
+	color: rgb(169, 183, 198);
+	border: 1px solid rgb(85, 85, 85);
+}
+
+/*设置垂直滚动条基本样式*/
+QScrollBar:vertical {
+    width: 10px;
+    background: rgb(68, 68, 68);
+    margin: 0px,0px,0px,0px;
+}
+QScrollBar::handle:vertical {
+    width: 10px;
+    background: rgba(0,0,0,10%);
+    min-height: 20;
+}
+QScrollBar::handle:vertical:hover {
+    width: 10px;
+    /*鼠标放到滚动条上的时候，颜色变深*/
+    background: rgba(0,0,0,20%);
+    min-height: 20;
+}
+/*当滚动条滚动的时候，上面的部分和下面的部分*/
+QScrollBar::sub-page:vertical {
+    background: rgb(111, 111, 111);
+}
+QScrollBar::add-page:vertical 
+{
+    background: rgb(111, 111, 111);
+}
+</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="saveAs">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>30</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+}
+QPushButton:pressed{
+	background-color: rgb(93, 97, 99);  
+	border: 0px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="img.qrc">
+      <normaloff>:/img/img/saveas.png</normaloff>:/img/img/saveas.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>100</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+	color: rgb(187, 187, 187);
+}</string>
+    </property>
+    <property name="text">
+     <string>程序符号表：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>340</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+	color: rgb(187, 187, 187);
+}</string>
+    </property>
+    <property name="text">
+     <string>程序输出：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>100</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+	color: rgb(187, 187, 187);
+}</string>
+    </property>
+    <property name="text">
+     <string>机器指令代码：</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="userInput">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>520</y>
+      <width>391</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPlainTextEdit{
+	background: transparent;
+	background-color: rgb(43, 43, 43);
+	color: rgb(169, 183, 198);
+	border: 1px solid rgb(85, 85, 85);
+}
+
+/*设置垂直滚动条基本样式*/
+QScrollBar:vertical {
+    width: 10px;
+    background: rgb(68, 68, 68);
+    margin: 0px,0px,0px,0px;
+}
+QScrollBar::handle:vertical {
+    width: 10px;
+    background: rgba(0,0,0,10%);
+    min-height: 20;
+}
+QScrollBar::handle:vertical:hover {
+    width: 10px;
+    /*鼠标放到滚动条上的时候，颜色变深*/
+    background: rgba(0,0,0,20%);
+    min-height: 20;
+}
+/*当滚动条滚动的时候，上面的部分和下面的部分*/
+QScrollBar::sub-page:vertical {
+    background: rgb(111, 111, 111);
+}
+QScrollBar::add-page:vertical 
+{
+    background: rgb(111, 111, 111);
+}
+</string>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>500</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background: transparent;
+	border-width: 0;
+	border-style: outset;
+	color: rgb(187, 187, 187);
+}</string>
+    </property>
+    <property name="text">
+     <string>程序输入：</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>856</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="img.qrc"/>
+ </resources>
+ <connections/>
+</ui>

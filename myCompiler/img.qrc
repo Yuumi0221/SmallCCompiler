@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>yuumi.ico</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>img/open.png</file>
+        <file>img/run.png</file>
+        <file>img/save.png</file>
+        <file>img/saveas.png</file>
+    </qresource>
+</RCC>

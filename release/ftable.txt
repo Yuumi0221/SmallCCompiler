@@ -1,0 +1,6 @@
+    1 const a val=3
+    2 var   i lev=0 addr=3
+    3 var   j lev=0 addr=4
+    4 var   halfi lev=0 addr=5
+    5 var   check lev=0 addr=6
+

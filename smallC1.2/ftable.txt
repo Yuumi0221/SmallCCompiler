@@ -1,0 +1,5 @@
+    1 const m val=2
+    2 const n val=3
+    3 var   i lev=0 addr=3
+    4 var   j lev=0 addr=4
+
